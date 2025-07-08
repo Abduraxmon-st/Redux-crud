@@ -45,7 +45,7 @@ export const SigninPage = () => {
     }
   };
   return (
-    <div className={cn('flex flex-col gap-6 w-1/3')}>
+    <div className={cn('flex flex-col gap-6 w-[80%] md:w-1/2 lg:w-1/3')}>
       <Card>
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
@@ -71,12 +71,6 @@ export const SigninPage = () => {
               <div className="grid gap-3 relative">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
                 </div>
                 <Input
                   id="password"
@@ -101,16 +95,7 @@ export const SigninPage = () => {
                 <Button disabled={!isValid} type="submit" className="w-full">
                   Login
                 </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
-                </Button>
               </div>
-            </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{' '}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
             </div>
           </form>
         </CardContent>
