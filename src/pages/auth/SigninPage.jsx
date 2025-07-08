@@ -72,24 +72,25 @@ export const SigninPage = () => {
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input
+                <div className='relative'>
+                  <Input
                   id="password"
                   type={visible ? 'text' : 'password'}
                   required
                   {...register('password', {
                     required: true,
                   })}
-                />
-                {errors.password && (
-                  <span className="text-red-600">This field is required</span>
-                )}
-                <button
+                /><button
                   type="button"
-                  className="absolute right-3 top-1/2 translate-y-1"
+                  className="absolute right-2 top-1/2 -translate-y-1/2"
                   onClick={() => setVisible(!visible)}
                 >
                   {visible ? <EyeOff /> : <Eye />}
                 </button>
+                </div>
+                {errors.password && (
+                  <span className="text-red-600">This field is required</span>
+                )}
               </div>
               <div className="flex flex-col gap-3">
                 <Button disabled={!isValid} type="submit" className="w-full">
