@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ConfirmModal } from "@/components/modal/ConfirmModal";
 import { DelAllModal } from "@/components/modal/DelAllModal";
-import { addWishlist, DelAllInCart } from "@/redux/slices/authSlice";
+import { addWishlist, decremented, DelAllInCart, incremented } from "@/redux/slices/authSlice";
 import { formatPrice } from "@/utils";
-import { Heart } from "lucide-react";
+import { Heart, Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -41,8 +41,7 @@ const CartPage = () => {
       toast.success(`${product.name} added to wishlist`);
     }
   };
-
-
+  const value = useSelector((s) => s.all.value)
   return (
     <div className="container">
       <div className="relative">
@@ -74,7 +73,25 @@ const CartPage = () => {
                     <strong>{formatPrice(item.price)}</strong>
                     <span>{item.inStock} шт</span>
                   </div>
-
+                  <div className="flex justify-end items-center gap-5 mt-15 container mx-auto">
+                    <Button
+                    variant={'outline'}
+                      disabled={item.quantity === 50}
+                      className="cursor-pointer px-4 py-2 bg-black rounded-md font-bold"
+                      onClick={() => dispatch(incremented(item.id))}
+                    >
+                      <Plus/>
+                    </Button>
+                    <p className='text-xl font-bold w-5 text-center'>{item.quantity}</p>
+                    <Button
+                    variant={'outline'}
+                      disabled={item.quantity === 1}
+                      className="cursor-pointer px-4 py-2 bg-black rounded-md font-bold"
+                      onClick={() => dispatch(decremented(item.id))}
+                    >
+                      <Minus />
+                    </Button>
+                  </div>
                   <div className="mt-10 flex justify-between">
                     <Button variant={'destructive'} onClick={() => handleDeleteProduct(item)}>
                       Delete
@@ -98,7 +115,7 @@ const CartPage = () => {
         <ConfirmModal open={modalOpen} toggleOpen={toggleOpen} item={selected} />
       )}
       {modalOpenDel && (
-        <DelAllModal open={modalOpenDel} toggleOpen={toggleOpenAll} fn={DelAllInCart}/>
+        <DelAllModal open={modalOpenDel} toggleOpen={toggleOpenAll} fn={DelAllInCart} />
       )}
     </div>
   )

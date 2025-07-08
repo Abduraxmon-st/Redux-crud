@@ -48,16 +48,22 @@ const authSlice = createSlice({
     DelAllInWishlist: (state) => {
       state.wishList = []
     },
-    incremented: state => {
-      state.value += 1
+    incremented: (state, action) => {
+      const item = state.cart.find((el) => el.id === action.payload);
+      if (item) {
+        item.quantity++;
+        console.log();
+        
+      }
     },
-    decremented: state => {
-      if (state.value > 0) {
-        state.value -= 1
+    decremented: (state, action) => {
+      const item = state.cart.find((el) => el.id === action.payload);
+      if (item.quantity > 1) {
+        item.quantity--;
       }
     }
   },
 });
 
-export const { login, logout, addToCart, DelProductInCart,DelAllInCart, addWishlist, removeWishProduct, incremented, decremented, DelAllInWishlist } = authSlice.actions;
+export const { login, logout, addToCart, DelProductInCart, DelAllInCart, addWishlist, removeWishProduct, incremented, decremented, DelAllInWishlist } = authSlice.actions;
 export default authSlice.reducer;
